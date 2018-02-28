@@ -24,13 +24,12 @@ class BatchGenerator():
 
         with open(path+'/real/training_split.txt') as f:
             training_indexes = [int(i) for i in f.read().strip().split(', ')]
-            print(training_indexes)
 
         for obj_folder in glob.glob('{}/{}/*/'.format(path,'real')):
             obj = obj_folder.rstrip('/').split('/')[-1]
             print(obj_folder)
-            self._train[obj] = self.load_object_poses(obj_folder, training_indexes, invert_index=False)
-            self._test[obj] = self.load_object_poses(obj_folder, training_indexes, invert_index=True)
+            self._test[obj] = self.load_object_poses(obj_folder, training_indexes.copy(), invert_index=True)
+            self._train[obj].update(self.load_object_poses(obj_folder, training_indexes.copy(), invert_index=False))
 
         print('Finished Loading Dataset!')
 
@@ -47,6 +46,8 @@ class BatchGenerator():
                     num = self._extract_number(line)
                     img = ''
                     if (include_index is None) or (index==num and not invert_index) or (index!=num and invert_index):
+                        if include_index is not None and include_index:
+                            index = include_index.pop(0)
                         img = line.strip(' #\n')
                 else:
                     if img:
@@ -59,5 +60,6 @@ class BatchGenerator():
         num = int(''.join(num_array))
         return num
 
+    #for batch in batchGenerator.triplet_batches(batch_size)
     def triplet_batches(self, batch_size=1):
         pass
