@@ -1,4 +1,5 @@
 import glob
+import numpy as np
 
 class BatchGenerator():
 
@@ -10,7 +11,6 @@ class BatchGenerator():
 
     def load_dataset(self, path):
         print('Loading Dataset...')
-        #db set
 
         for obj_folder in glob.glob('{}/{}/*/'.format(path,'coarse')):
             obj = obj_folder.rstrip('/').split('/')[-1]
@@ -52,7 +52,7 @@ class BatchGenerator():
                 else:
                     if img:
                         pose = [float(i) for i in line.strip('\n').split()]
-                        poses[img] = pose
+                        poses[img] = np.array(pose)
         return poses
 
     def _extract_number(self, string):
@@ -60,6 +60,19 @@ class BatchGenerator():
         num = int(''.join(num_array))
         return num
 
-    #for batch in batchGenerator.triplet_batches(batch_size)
-    def triplet_batches(self, batch_size=1):
+    #for batch in gen.triplet_batches()
+    def triplet_batches(self, batch_size=1, num_batches=1):
+        train_flat = [[obj, img, self._train[obj][img]] for obj in self._train.keys() for img in self._train[obj].keys()]
+        np.random.shuffle(train_flat)
+        for _ in range(num_batches):
+
+            batch = [train_flat.pop(0) for _ in range(batch_size) if train_flat]
+            yield batch
+
+
+
+    def _get_puller(self, anchor):
         pass
+
+    def _quaternion_angular_metric(self,q1, q2):
+        return 2*np.arccos(np.fabs(np.dot(q1, q2)))
