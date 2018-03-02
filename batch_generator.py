@@ -15,12 +15,10 @@ class BatchGenerator():
 
         for obj_folder in glob.glob('{}/{}/*/'.format(path,'coarse')):
             obj = obj_folder.rstrip('/').split('/')[-1]
-            print(obj_folder)
             self._db[obj] = self.load_object_poses(obj_folder)
 
         for obj_folder in glob.glob('{}/{}/*/'.format(path,'fine')):
             obj = obj_folder.rstrip('/').split('/')[-1]
-            print(obj_folder)
             self._train[obj] = self.load_object_poses(obj_folder)
 
         with open(path+'/real/training_split.txt') as f:
@@ -28,7 +26,6 @@ class BatchGenerator():
 
         for obj_folder in glob.glob('{}/{}/*/'.format(path,'real')):
             obj = obj_folder.rstrip('/').split('/')[-1]
-            print(obj_folder)
             self._test[obj] = self.load_object_poses(obj_folder, training_indexes.copy(), invert_index=True)
             self._train[obj].update(self.load_object_poses(obj_folder, training_indexes.copy(), invert_index=False))
 
@@ -62,13 +59,16 @@ class BatchGenerator():
         num = int(''.join(num_array))
         return num
 
+    def all_triplets(self):
+        return list(self.triplet_batches(batch_size=len(self._train_flat), num_batches=1))[0]
+
     #for batch in gen.triplet_batches()
     def triplet_batches(self, batch_size=1, num_batches=1):
         train_flat = self._train_flat.copy()
         np.random.shuffle(train_flat)
         for _ in range(num_batches):
             batch = []
-            for _ in range(batch_size):
+            for i in range(batch_size):
                 if not train_flat:
                     return batch #yield batch return?
                 anchor = train_flat.pop(0)
@@ -105,7 +105,7 @@ class BatchGenerator():
             if i - len(self._db[obj]) > 0:
                 i -= len(self._db[obj])
                 continue
-            return list(self._db[obj].keys())[i]
+            return list(self._db[obj].keys())[i-1]
 
     def _quaternion_angular_metric(self,q1, q2):
         return 2*np.arccos(np.fabs(np.dot(q1, q2)))
