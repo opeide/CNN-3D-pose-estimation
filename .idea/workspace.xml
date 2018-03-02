@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ecda8a81-d604-4986-a2cd-375e66ea3e11" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/util.py" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/batch_generator.py" afterPath="$PROJECT_DIR$/batch_generator.py" />
       <change beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
@@ -18,21 +19,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="env.yml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/env.yml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="61" column="19" lean-forward="false" selection-start-line="61" selection-start-column="19" selection-end-line="61" selection-end-column="19" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+            <state relative-caret-position="422">
+              <caret line="97" column="0" lean-forward="true" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
               <folding>
                 <element signature="e#0#42#0" expanded="true" />
               </folding>
@@ -40,11 +31,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="util.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/util.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="36">
+              <caret line="2" column="31" lean-forward="false" selection-start-line="2" selection-start-column="31" selection-end-line="2" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="batch_generator.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/batch_generator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="446">
-              <caret line="110" column="50" lean-forward="false" selection-start-line="110" selection-start-column="35" selection-end-line="110" selection-end-column="50" />
+            <state relative-caret-position="116">
+              <caret line="67" column="37" lean-forward="false" selection-start-line="67" selection-start-column="37" selection-end-line="67" selection-end-column="37" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -63,6 +64,7 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
+      <find>features</find>
       <find>print</find>
     </findStrings>
   </component>
@@ -74,15 +76,16 @@
       <list>
         <option value="$PROJECT_DIR$/dataset/coarse/ape/poses.txt" />
         <option value="$PROJECT_DIR$/batch_generator.py" />
+        <option value="$PROJECT_DIR$/util.py" />
         <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="2118" />
-    <option name="y" value="58" />
-    <option name="width" value="928" />
-    <option name="height" value="1020" />
+  <component name="ProjectFrameBounds" extendedState="4">
+    <option name="x" value="1745" />
+    <option name="y" value="24" />
+    <option name="width" value="1181" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -105,30 +108,6 @@
             <path>
               <item name="CNN-3D-pose-estimation" type="b2602c69:ProjectViewProjectNode" />
               <item name="CNN-3D-pose-estimation" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CNN-3D-pose-estimation" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CNN-3D-pose-estimation" type="462c0819:PsiDirectoryNode" />
-              <item name="dataset" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CNN-3D-pose-estimation" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CNN-3D-pose-estimation" type="462c0819:PsiDirectoryNode" />
-              <item name="dataset" type="462c0819:PsiDirectoryNode" />
-              <item name="coarse" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CNN-3D-pose-estimation" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CNN-3D-pose-estimation" type="462c0819:PsiDirectoryNode" />
-              <item name="dataset" type="462c0819:PsiDirectoryNode" />
-              <item name="coarse" type="462c0819:PsiDirectoryNode" />
-              <item name="cam" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CNN-3D-pose-estimation" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CNN-3D-pose-estimation" type="462c0819:PsiDirectoryNode" />
-              <item name="dataset" type="462c0819:PsiDirectoryNode" />
-              <item name="fine" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -219,13 +198,13 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="2118" y="58" width="928" height="1020" extended-state="0" />
+    <frame x="1745" y="24" width="1181" height="1056" extended-state="4" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2112069" sideWeight="0.4945055" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20406435" sideWeight="0.4945055" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3522976" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33894736" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32947367" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -339,18 +318,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/batch_generator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="446">
-          <caret line="110" column="50" lean-forward="false" selection-start-line="110" selection-start-column="35" selection-end-line="110" selection-end-column="50" />
+        <state relative-caret-position="116">
+          <caret line="67" column="37" lean-forward="false" selection-start-line="67" selection-start-column="37" selection-end-line="67" selection-end-column="37" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/util.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="31" lean-forward="false" selection-start-line="2" selection-start-column="31" selection-end-line="2" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+        <state relative-caret-position="422">
+          <caret line="97" column="0" lean-forward="true" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
           <folding>
             <element signature="e#0#42#0" expanded="true" />
           </folding>

@@ -76,7 +76,7 @@ class BatchGenerator():
                 puller_img = self._get_puller(anchor)
                 pusher_img = self._get_pusher(anchor)
                 triplet = [anchor_img, puller_img, pusher_img]
-                batch.append(triplet)
+                batch.extend(triplet)
             yield batch
 
 
