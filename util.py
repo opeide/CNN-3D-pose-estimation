@@ -1,3 +1,5 @@
+__author__ = 'opeide'
+
 import matplotlib.pyplot as plt
 
 def sequence_to_triplets(arr):

@@ -1,7 +1,11 @@
+__author__ = 'opeide'
+
 import glob
 import numpy as np
 import random
 import cv2
+
+#Todo: Handle transition between epochs smoothly
 
 class BatchGenerator():
 

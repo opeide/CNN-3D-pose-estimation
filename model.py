@@ -1,3 +1,5 @@
+__author__ = 'opeide'
+
 import tensorflow as tf
 
 def cnn_model_fn(features, labels, mode):
@@ -60,6 +62,7 @@ def cnn_model_fn(features, labels, mode):
   loss_triplets = tf.reduce_sum(tf.maximum(0., tf.subtract(1., fraction)))
   loss = tf.add(loss_triplets, loss_pairs)
 
+  #TODO: remove when finished debugging
   logging_hook = tf.train.LoggingTensorHook({'input': tf.shape(input_layer),
                                              'c1': tf.shape(conv1),
                                              'p1': tf.shape(pool1),
