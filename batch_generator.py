@@ -1,6 +1,7 @@
 import glob
 import numpy as np
 import random
+import cv2
 
 class BatchGenerator():
 
@@ -80,6 +81,18 @@ class BatchGenerator():
             yield batch
 
 
+    #Loads the image paths as tensors
+    def train_input_gen(self, batch_size=1):
+        while True:
+            batch = list(self.triplet_batches(batch_size=batch_size))[0]
+            loaded_batch = []
+            for path in batch:
+                loaded_img = cv2.imread(path)
+                loaded_img_f = np.float32(loaded_img)
+                loaded_batch.append(loaded_img_f)
+            loaded_batch_np = np.reshape(loaded_batch, [len(batch),64,64,3])
+            labels = 'no labels, ya dingus' #TODO: set to None after debugging
+            yield ({'x': loaded_batch_np}, labels)
 
     def _get_puller(self, anchor):
         #Find the most similar DB image of the same object type
