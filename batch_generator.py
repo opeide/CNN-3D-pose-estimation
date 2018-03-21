@@ -4,6 +4,7 @@ import glob
 import numpy as np
 import random
 import cv2
+import tensorflow as tf
 
 #Todo: Handle transition between epochs smoothly
 
@@ -126,3 +127,37 @@ class BatchGenerator():
 
     def _quaternion_angular_metric(self,q1, q2):
         return 2*np.arccos(np.fabs(np.dot(q1, q2)))
+
+    def gen_db(self):
+        loaded_batch = []
+        i = 0
+        for clasification in self._db:
+            print(clasification)
+            for path in self._db[clasification]:
+                #if i >= 5:
+                #    print(i)
+                #    break
+                loaded_img = cv2.imread(path)
+                loaded_img_f = np.float32(loaded_img)
+                loaded_batch.append(loaded_img_f)
+                i += 1
+        print("Set: db", "antal ellementer: ", i)
+        return np.reshape(loaded_batch, [i, 64, 64, 3])
+
+
+    def test_gen(self):
+        for clasification in self._test:
+            for image in self._test[clasification]:
+                loaded_img = cv2.imread(image)
+                loaded_img_f = np.float32(loaded_img)
+                yield np.reshape(loaded_img_f, [-1, 64, 64, 3]), clasification, self._test[clasification][image]
+
+    def get_classification_and_quaternion_db(self, nr):
+        i = 0
+        for classification in self._db:
+            for image in self._db[classification]:
+                if i >= nr:
+                    #print(i)
+                    return classification, self._db[classification][image]
+                i += 1
+

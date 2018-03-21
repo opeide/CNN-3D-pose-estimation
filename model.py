@@ -41,8 +41,9 @@ def cnn_model_fn(features, labels, mode):
   #TODO use NN to generate predictions from output descriptors
   predictions = {
       # Generate descriptors and corresp nearest neighbour (for PREDICT and EVAL mode)
+      #: tf.argmax(input=output_descriptors, axis=1)
       "descriptor": output_descriptors,
-      "nearest neighbours": 0
+      #"nearest neighbours": 0
   }
 
   if mode == tf.estimator.ModeKeys.PREDICT:

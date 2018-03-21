@@ -1,6 +1,9 @@
 __author__ = 'opeide'
 
 import matplotlib.pyplot as plt
+import numpy as np
+import cv2
+import tensorflow as tf
 
 def sequence_to_triplets(arr):
     """Yield successive n-sized chunks from l."""
@@ -15,3 +18,59 @@ def plot_triplet_sequence(triplet_sequence):
             img = plt.imread(triplet[i])
             plt.imshow(img)
         plt.show()
+
+def histogram(arr,bin):
+    plt.hist(arr, bin)
+    plt.title("Histogram of angels")
+    plt.show()
+
+
+
+def quternion_angel(q1, q2):
+    norm_q1 = np.linalg.norm(q1)
+    norm_q2 = np.linalg.norm(q2)
+    angel_rad = 2*np.arccos(np.dot(q1, q2)/(norm_q1*norm_q2))
+    return angel_rad*180/np.pi
+
+def get_db_space_np(gen, cnn):
+    db_data = gen.gen_db()
+    db_input_fn = tf.estimator.inputs.numpy_input_fn(x={"x": db_data}, num_epochs=1, shuffle=False)
+    db_features = cnn.predict(input_fn=db_input_fn)
+    j = 0
+    db_space = []
+    for db_feature in db_features:
+        db_space.append(db_feature["descriptor"])
+        j += 1
+        if j > 1500:
+            break
+    db_space_np = np.reshape(db_space, [-1, 16])
+    return db_space_np
+
+def get_histogram_array(gen, cnn, db_space_np):
+    bf = cv2.BFMatcher()
+    histogram_arry = []
+    j = 0
+    for test, classification, quternion in gen.test_gen():
+        test_input_fn = tf.estimator.inputs.numpy_input_fn(x={"x": test}, num_epochs=1, shuffle=False)
+        test_features = cnn.predict(input_fn=test_input_fn)
+        for test_feature in test_features:
+            matches = bf.match(db_space_np, np.reshape(test_feature["descriptor"], [-1, 16]))
+            matches = sorted(matches, key=lambda x: x.distance)
+            # print("Query shortest distance: ", matches[0].queryIdx, "distance: ", matches[0].distance)
+            # print("Classification: ", classification)
+            db_classificaion, db_quaterion = gen.get_classification_and_quaternion_db(matches[0].queryIdx)
+            # print(db_classificaion, db_quaterion)
+            if classification == db_classificaion:
+                angel = quternion_angel(quternion, db_quaterion)
+                if (angel < 10):
+                    histogram_arry.append(10)
+                elif (angel < 20):
+                    histogram_arry.append(20)
+                elif (angel < 40):
+                    histogram_arry.append(40)
+                elif (angel < 180):
+                    histogram_arry.append(180)
+
+        j += 1
+        if (j >= 100):
+            return histogram_arry
