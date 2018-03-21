@@ -41,7 +41,7 @@ def get_db_space_np(gen, cnn):
     for db_feature in db_features:
         db_space.append(db_feature["descriptor"])
         j += 1
-        if j > 1500:
+        if j > 15:
             break
     db_space_np = np.reshape(db_space, [-1, 16])
     return db_space_np
@@ -72,5 +72,6 @@ def get_histogram_array(gen, cnn, db_space_np):
                     histogram_arry.append(180)
 
         j += 1
-        if (j >= 100):
+        if (j >= 10):
             return histogram_arry
+        
