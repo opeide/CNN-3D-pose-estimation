@@ -32,13 +32,13 @@ def cnn_model_fn(features, labels, mode):
   pool2 = tf.layers.max_pooling2d(inputs=conv2, pool_size=[2, 2], strides=2)
 
   # Dense Layer
-  pool2_flat = tf.reshape(pool2, [-1, 1372]) #Vary with batch size
+  pool2_flat = tf.reshape(pool2, [-1, 1372]) #Todo: Vary with batch size
   dense = tf.layers.dense(inputs=pool2_flat, units=256, activation=tf.nn.relu)
 
   # output Layer
   output_descriptors = tf.layers.dense(inputs=dense, units=16)
 
-  #TODO use NN to generate predictions from output descriptors
+  #TODO use NN-search to generate pose predictions from output descriptors
   predictions = {
       # Generate descriptors and corresp nearest neighbour (for PREDICT and EVAL mode)
       "descriptor": output_descriptors,
@@ -62,16 +62,6 @@ def cnn_model_fn(features, labels, mode):
   loss_triplets = tf.reduce_sum(tf.maximum(0., tf.subtract(1., fraction)))
   loss = tf.add(loss_triplets, loss_pairs)
 
-  #TODO: remove when finished debugging
-  logging_hook = tf.train.LoggingTensorHook({'input': tf.shape(input_layer),
-                                             'c1': tf.shape(conv1),
-                                             'p1': tf.shape(pool1),
-                                             'c2': tf.shape(conv2),
-                                             'p2': tf.shape(pool2),
-                                             'p2f': tf.shape(pool2_flat),
-                                             'fc': tf.shape(dense),
-                                             'output': tf.shape(output_descriptors)},
-                                            every_n_iter=100)
 
   # Configure the Training Op (for TRAIN mode)
   if mode == tf.estimator.ModeKeys.TRAIN:
@@ -79,7 +69,7 @@ def cnn_model_fn(features, labels, mode):
     train_op = optimizer.minimize(
         loss=loss,
         global_step=tf.train.get_global_step())
-    return tf.estimator.EstimatorSpec(mode=mode, loss=loss, train_op=train_op, training_hooks=[logging_hook])
+    return tf.estimator.EstimatorSpec(mode=mode, loss=loss, train_op=train_op, )
 
   # Add evaluation metrics (for EVAL mode)
   eval_metric_ops = {

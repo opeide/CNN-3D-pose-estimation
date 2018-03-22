@@ -75,6 +75,7 @@ class BatchGenerator():
             batch = []
             for i in range(batch_size):
                 if not train_flat:
+                    print('OUT OF DATA! NEW EPOCH!')
                     return batch #yield batch return?
                 anchor = train_flat.pop(0)
                 _, anchor_img, _ = anchor
@@ -88,7 +89,7 @@ class BatchGenerator():
     #Loads the image paths as tensors
     def train_input_gen(self, num_triplets=1):
         while True:
-            batch_img_paths = list(self.triplet_batches(batch_size=num_triplets))[0]
+            batch_img_paths = list(self.triplet_batches(batch_size=num_triplets))[0] #TODO: use next()?
             loaded_batch = []
             for path in batch_img_paths:
                 loaded_img = cv2.imread(path)

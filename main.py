@@ -27,5 +27,5 @@ for batch, labels in gen.train_input_gen(num_triplets=2):
 
 
 cnn = tf.estimator.Estimator(model_fn=model.cnn_model_fn)
-cnn.train(input_fn=lambda: next(gen.train_input_gen(num_triplets=2)), steps=50)
+cnn.train(input_fn=lambda: next( gen.train_input_gen(num_triplets=5)) , steps=200)
 
