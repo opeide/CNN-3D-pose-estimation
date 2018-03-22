@@ -4,6 +4,7 @@ import glob
 import numpy as np
 import random
 import cv2
+import util
 import tensorflow as tf
 
 #Todo: Handle transition between epochs smoothly
@@ -92,7 +93,7 @@ class BatchGenerator():
             batch_img_paths = list(self.triplet_batches(batch_size=num_triplets))[0]
             loaded_batch = []
             for path in batch_img_paths:
-                loaded_img = cv2.imread(path)
+                loaded_img = util.loaded_normalized_img(path)
                 loaded_img_f = np.float32(loaded_img)
                 loaded_batch.append(loaded_img_f)
             loaded_batch_np = np.reshape(loaded_batch, [3*num_triplets,64,64,3])

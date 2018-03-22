@@ -1,6 +1,7 @@
 __author__ = 'opeide'
 
 import tensorflow as tf
+import util
 
 def cnn_model_fn(features, labels, mode):
   """Model function for CNN."""
@@ -63,8 +64,7 @@ def cnn_model_fn(features, labels, mode):
   loss_triplets = tf.reduce_sum(tf.maximum(0., tf.subtract(1., fraction)))
   loss = tf.add(loss_triplets, loss_pairs)
 
-  tf.summary.scalar("loss",loss)
-  tf.summary.histogram("Accurasy",)
+  #tf.summary.scalar("Loooss",loss)
   #TODO: remove when finished debugging
   logging_hook = tf.train.LoggingTensorHook({'input': tf.shape(input_layer),
                                              'c1': tf.shape(conv1),
