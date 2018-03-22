@@ -5,7 +5,6 @@ import tensorflow as tf
 def cnn_model_fn(features, labels, mode):
   """Model function for CNN."""
 
-  print('labels: {}'.format(labels))
   # Input Layer
   input_layer = tf.reshape(features['x'], [-1, 64, 64, 3])
 
@@ -42,7 +41,6 @@ def cnn_model_fn(features, labels, mode):
   predictions = {
       # Generate descriptors and corresp nearest neighbour (for PREDICT and EVAL mode)
       "descriptor": output_descriptors,
-      "nearest neighbours": 0
   }
 
   if mode == tf.estimator.ModeKeys.PREDICT:
@@ -62,16 +60,6 @@ def cnn_model_fn(features, labels, mode):
   loss_triplets = tf.reduce_sum(tf.maximum(0., tf.subtract(1., fraction)))
   loss = tf.add(loss_triplets, loss_pairs)
 
-  #TODO: remove when finished debugging
-  logging_hook = tf.train.LoggingTensorHook({'input': tf.shape(input_layer),
-                                             'c1': tf.shape(conv1),
-                                             'p1': tf.shape(pool1),
-                                             'c2': tf.shape(conv2),
-                                             'p2': tf.shape(pool2),
-                                             'p2f': tf.shape(pool2_flat),
-                                             'fc': tf.shape(dense),
-                                             'output': tf.shape(output_descriptors)},
-                                            every_n_iter=100)
 
   # Configure the Training Op (for TRAIN mode)
   if mode == tf.estimator.ModeKeys.TRAIN:
