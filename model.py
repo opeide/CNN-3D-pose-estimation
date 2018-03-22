@@ -3,6 +3,11 @@ __author__ = 'opeide'
 import tensorflow as tf
 import util
 
+class MyHook(tf.train.SessionRunkHook):
+    def after_run(selfself,run_context,run_value):
+        _session = run_context.session
+        _session.run(_session.graph.get_operation_by_name('acc_op'))
+
 def cnn_model_fn(features, labels, mode):
   """Model function for CNN."""
 
@@ -63,8 +68,6 @@ def cnn_model_fn(features, labels, mode):
   fraction = tf.divide(square_norm_diff_neg, tf.add(m, square_norm_diff_pos))
   loss_triplets = tf.reduce_sum(tf.maximum(0., tf.subtract(1., fraction)))
   loss = tf.add(loss_triplets, loss_pairs)
-
-  #tf.summary.scalar("Loooss",loss)
   #TODO: remove when finished debugging
   logging_hook = tf.train.LoggingTensorHook({'input': tf.shape(input_layer),
                                              'c1': tf.shape(conv1),
@@ -76,12 +79,15 @@ def cnn_model_fn(features, labels, mode):
                                              'output': tf.shape(output_descriptors)},
                                             every_n_iter=100)
 
+  loss_sum = tf.summary.scalar("Loooss", loss,)
+  
   # Configure the Training Op (for TRAIN mode)
   if mode == tf.estimator.ModeKeys.TRAIN:
     optimizer = tf.train.AdamOptimizer(learning_rate=0.001)
     train_op = optimizer.minimize(
         loss=loss,
         global_step=tf.train.get_global_step())
+    #loss_sum2 = tf.summary.scalar("Loooss2", loss)
     return tf.estimator.EstimatorSpec(mode=mode, loss=loss, train_op=train_op, training_hooks=[logging_hook])
 
   # Add evaluation metrics (for EVAL mode)

@@ -28,10 +28,10 @@ for batch, labels in gen.train_input_gen(num_triplets=2):
     print(np.shape(batch['x']))
 
 
-cnn = tf.estimator.Estimator(model_fn=model.cnn_model_fn,model_dir="/tmp/logg3")
+cnn = tf.estimator.Estimator(model_fn=model.cnn_model_fn)#,model_dir="/tmp/logg3")
 for i in range(5):
     print("runn nr: ", i)
-    cnn.train(input_fn=lambda: next(gen.train_input_gen(num_triplets=2)), steps=50)
+    cnn.train(input_fn=lambda: next(gen.train_input_gen(num_triplets=2)), steps=10)
     print("Calculate the db space")
     db_space_np = util.get_db_space_np(gen, cnn)
     print("Get histogram array")

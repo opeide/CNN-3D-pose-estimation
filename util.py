@@ -32,7 +32,7 @@ def quternion_angel(q1, q2):
     # norm_q2 = np.linalg.norm(q2)
     # angel_rad = 2*np.arccos(np.dot(q1, q2)/(norm_q1*norm_q2))
     # return angel_rad*180/np.pi
-    return 2*np.arccos(np.fabs(np.dot(q1, q2)))
+    return 2*np.arccos(np.fabs(np.dot(q1, q2)))*180/np.pi
 
 def loaded_normalized_img(path):
     loaded_img = cv2.imread(path)
