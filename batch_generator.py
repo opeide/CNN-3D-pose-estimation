@@ -97,7 +97,7 @@ class BatchGenerator():
                 loaded_img_f = np.float32(loaded_img)
                 loaded_batch.append(loaded_img_f)
             loaded_batch_np = np.reshape(loaded_batch, [3*num_triplets,64,64,3])
-            labels = batch_img_paths #TODO: set to None after debugging
+            labels = None
             yield ({'x': loaded_batch_np}, labels)
 
     def _get_puller(self, anchor):
@@ -135,9 +135,6 @@ class BatchGenerator():
         for clasification in self._db:
             print(clasification)
             for path in self._db[clasification]:
-                #if i >= 5:
-                #    print(i)
-                #    break
                 loaded_img = cv2.imread(path)
                 loaded_img_f = np.float32(loaded_img)
                 loaded_batch.append(loaded_img_f)
@@ -158,7 +155,6 @@ class BatchGenerator():
         for classification in self._db:
             for image in self._db[classification]:
                 if i >= nr:
-                    #print(i)
                     return classification, self._db[classification][image]
                 i += 1
 

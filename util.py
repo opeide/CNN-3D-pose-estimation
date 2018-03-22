@@ -28,10 +28,6 @@ def histogram_generation():
     return [1, 1, 2, 2, 3]
 
 def quternion_angel(q1, q2):
-    # norm_q1 = np.linalg.norm(q1)
-    # norm_q2 = np.linalg.norm(q2)
-    # angel_rad = 2*np.arccos(np.dot(q1, q2)/(norm_q1*norm_q2))
-    # return angel_rad*180/np.pi
     return 2*np.arccos(np.fabs(np.dot(q1, q2)))*180/np.pi
 
 def loaded_normalized_img(path):
@@ -57,29 +53,14 @@ def get_db_space_np(gen, cnn):
 def get_histogram_array(gen, cnn, db_space_np):
     bf = cv2.BFMatcher()
     histogram_arry = []
-    j = 0
     for test, classification, quternion in gen.test_gen():
         test_input_fn = tf.estimator.inputs.numpy_input_fn(x={"x": test}, num_epochs=1, shuffle=False)
         test_features = cnn.predict(input_fn=test_input_fn)
         for test_feature in test_features:
             matches = bf.match(db_space_np, np.reshape(test_feature["descriptor"], [-1, 16]))
             matches = sorted(matches, key=lambda x: x.distance)
-            # print("Query shortest distance: ", matches[0].queryIdx, "distance: ", matches[0].distance)
-            # print("Classification: ", classification)
             db_classificaion, db_quaterion = gen.get_classification_and_quaternion_db(matches[0].queryIdx)
-            # print(db_classificaion, db_quaterion)
             if classification == db_classificaion:
                 angel = quternion_angel(quternion, db_quaterion)
                 histogram_arry.append(angel)
-                # if (angel < 10):
-                #     histogram_arry.append(10)
-                # elif (angel < 20):
-                #     histogram_arry.append(20)
-                # elif (angel < 40):
-                #     histogram_arry.append(40)
-                # elif (angel < 180):
-                #     histogram_arry.append(180)
-
-        j += 1
-        if (j >= 10):
-            return histogram_arry
+    return histogram_arry
