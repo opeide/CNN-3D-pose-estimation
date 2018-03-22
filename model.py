@@ -5,7 +5,6 @@ import tensorflow as tf
 def cnn_model_fn(features, labels, mode):
   """Model function for CNN."""
 
-  print('labels: {}'.format(labels))
   # Input Layer
   input_layer = tf.reshape(features['x'], [-1, 64, 64, 3])
 
@@ -42,7 +41,6 @@ def cnn_model_fn(features, labels, mode):
   predictions = {
       # Generate descriptors and corresp nearest neighbour (for PREDICT and EVAL mode)
       "descriptor": output_descriptors,
-      "nearest neighbours": 0
   }
 
   if mode == tf.estimator.ModeKeys.PREDICT:
